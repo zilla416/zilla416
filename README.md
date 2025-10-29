@@ -21,9 +21,9 @@ I am a passionate Full Stack Web Developer from The Netherlands with experience 
 ![Linux](https://img.shields.io/badge/-Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 
 ## 💼 Projects
-- [Project One](https://github.com/zilla416/link-gate) - A URL transferring client built with websockets
-- [Project Two](https://github.com/zilla416/python-watermarker) - A fast and efficient video watermarker built in Python with FFMPEG
-- [Project Three](https://github.com/zilla416/javascript-retrogame) - A retrogame built in JavaScript
+- [Link Gate](https://github.com/zilla416/link-gate) - A URL transferring client built with websockets
+- [Python Watermarker](https://github.com/zilla416/python-watermarker) - A fast and efficient video watermarker built in Python with FFMPEG
+- [JavaScript Retrogame](https://github.com/zilla416/javascript-retrogame) - A retrogame built in JavaScript
 
 ## 📈 GitHub Stats
 ![Your Username's GitHub stats](https://github-readme-stats.vercel.app/api?username=zilla416&show_icons=true&theme=radical)
