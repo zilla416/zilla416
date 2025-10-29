@@ -21,9 +21,9 @@ I am a passionate Full Stack Web Developer from The Netherlands with experience 
 ![Linux](https://img.shields.io/badge/-Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 
 ## 💼 Projects
-- [Project One](https://github.com/yourusername/project-one) - A responsive e-commerce web application built with React and Node.js.
-- [Project Two](https://github.com/yourusername/project-two) - A real-time chat application using Socket.io and Express.
-- [Project Three](https://github.com/yourusername/project-three) - A REST API for managing tasks, built with Express and MongoDB.
+- [Project One](https://github.com/zilla416/link-gate) - A URL transferring client built with websockets
+- [Project Two](https://github.com/zilla416/python-watermarker) - A fast and efficient video watermarker built in Python with FFMPEG
+- [Project Three](https://github.com/zilla416/javascript-retrogame) - A retrogame built in JavaScript
 
 ## 📈 GitHub Stats
 ![Your Username's GitHub stats](https://github-readme-stats.vercel.app/api?username=zilla416&show_icons=true&theme=radical)
