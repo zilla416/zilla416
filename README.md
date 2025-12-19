@@ -28,7 +28,7 @@ I am a passionate Full Stack Web Developer from The Netherlands with experience 
 ![Your Username's GitHub stats](https://github-readme-stats.vercel.app/api?username=zilla416&show_icons=true&theme=radical)
 
 ## 📫 Connect with Me
-[![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/jaidenbruijn)
+[![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/jaiden-bruijn)
 [![Portfolio](https://img.shields.io/badge/-Portfolio-FF5722?style=for-the-badge&logo=firefox&logoColor=white)](https://jaidenbruijn.dev)
 
 ---
