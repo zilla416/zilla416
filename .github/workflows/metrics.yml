@@ -1,0 +1,43 @@
+name: Metrics
+
+on:
+  schedule: [{cron: "0 0 * * *"}]
+  workflow_dispatch:
+
+jobs:
+  github-metrics:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      # Pinned to the v3.34 commit: this action receives a token, so a moving tag
+      # like @latest would let upstream changes run with it unreviewed.
+      - uses: lowlighter/metrics@65836723097537a54cd8eb90f61839426b4266b6
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          user: zilla416
+          filename: metrics.png
+          # PNG so the grayscale filter is baked in by the renderer instead of
+          # depending on how each viewer's browser handles CSS inside SVG.
+          config_output: png
+          config_display: large
+          extras_css: "html { filter: grayscale(100%); }"
+
+          # Left out on purpose: community (followers, orgs can reveal employer),
+          # activity (recent event feed), metadata (render timestamps).
+          base: header, repositories
+
+          plugin_isocalendar: yes
+          plugin_isocalendar_duration: full-year
+
+          plugin_languages: yes
+          plugin_languages_limit: 8
+
+          plugin_lines: yes
+
+          plugin_achievements: yes
+          plugin_achievements_display: compact
+
+          # Not enabled: plugin_habits. Its commits-per-hour chart exposes your
+          # timezone and daily schedule. config_timezone is also left unset (UTC)
+          # for the same reason.
