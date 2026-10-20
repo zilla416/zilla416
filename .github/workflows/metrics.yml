@@ -4,6 +4,8 @@ on:
   schedule: [{cron: "0 0 * * *"}]
   workflow_dispatch:
 
+# Two 480px cards instead of one wide image: the README floats them left and
+# right, which is how the lowlighter/lowlighter profile gets its two-column look.
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
@@ -12,15 +14,15 @@ jobs:
     steps:
       # Pinned to the v3.34 commit: this action receives a token, so a moving tag
       # like @latest would let upstream changes run with it unreviewed.
-      - uses: lowlighter/metrics@65836723097537a54cd8eb90f61839426b4266b6
+      - name: Overview card
+        uses: lowlighter/metrics@65836723097537a54cd8eb90f61839426b4266b6
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           user: zilla416
-          filename: metrics.png
+          filename: metrics.overview.png
           # PNG so the dark background and colour overrides are baked in by the
           # renderer instead of depending on each viewer's browser and theme.
           config_output: png
-          config_display: large
           # Overrides the classic template's blue/grey (see its style.css) with
           # GitHub-dark green. Contribution squares already come in green.
           extras_css: |
@@ -29,24 +31,52 @@ jobs:
             h1, h2, h3 { color: #39d353; }
             .field svg { fill: #2ea043; }
 
-          # Left out on purpose: community (followers, orgs can reveal employer),
-          # activity (recent event feed), metadata (render timestamps).
+          config_timezone: Europe/Amsterdam
+
           base: header, repositories
-
-          plugin_isocalendar: yes
-          plugin_isocalendar_duration: full-year
-
-          plugin_languages: yes
-          plugin_languages_limit: 8
-          # Indexed by rank: most used language gets the brightest green.
-          plugin_languages_colors: "0:#7ee787, 1:#56d364, 2:#39d353, 3:#2ea043, 4:#26a641, 5:#238636, 6:#196c2e, 7:#0e4429"
+          config_order: base.header, base.repositories, languages
 
           plugin_lines: yes
 
-          # Not enabled: plugin_achievements. In v3.34 it queries GitHub's
-          # Projects (classic) API, which GitHub has shut down, so it renders
-          # "Unexpected error".
+          plugin_languages: yes
+          plugin_languages_limit: 6
+          plugin_languages_details: bytes-size, percentage
+          plugin_languages_sections: most-used, recently-used
+          # Indexed by rank: most used language gets the brightest green.
+          plugin_languages_colors: "0:#7ee787, 1:#56d364, 2:#39d353, 3:#2ea043, 4:#238636, 5:#196c2e"
 
-          # Not enabled: plugin_habits. Its commits-per-hour chart exposes your
-          # timezone and daily schedule. config_timezone is also left unset (UTC)
-          # for the same reason.
+      - name: Activity card
+        uses: lowlighter/metrics@65836723097537a54cd8eb90f61839426b4266b6
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          user: zilla416
+          filename: metrics.activity.png
+          config_output: png
+          config_timezone: Europe/Amsterdam
+          extras_css: |
+            html, body, body > svg { background: #0d1117; }
+            svg { color: #8b949e; }
+            h1, h2, h3 { color: #39d353; }
+            .field svg { fill: #2ea043; }
+            .chart-bars .bar { background-color: #39d353; }
+
+          base: ""
+          config_order: isocalendar, habits, activity
+
+          plugin_isocalendar: yes
+          plugin_isocalendar_duration: half-year
+
+          plugin_habits: yes
+          plugin_habits_charts: yes
+          plugin_habits_facts: yes
+          plugin_habits_days: 30
+
+          plugin_activity: yes
+          plugin_activity_limit: 5
+          plugin_activity_visibility: public
+
+          # Not enabled: plugin_achievements. In v3.34 (and current master) it
+          # queries GitHub's Projects (classic) API, which GitHub has shut down,
+          # so it renders "Unexpected error".
+          # Not enabled: plugin_topics. It shows topics you've starred on GitHub,
+          # not your own stack; the README's icon row covers that instead.
