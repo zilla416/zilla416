@@ -41,7 +41,10 @@ jobs:
           plugin_languages: yes
           plugin_languages_limit: 6
           plugin_languages_details: bytes-size, percentage
-          plugin_languages_sections: most-used, recently-used
+          # Not "recently-used": in v3.34 it reads payload.commits from push events,
+          # which GitHub's Events API no longer includes, and the whole run crashes
+          # ("Cannot destructure property 'committer' of 'undefined'").
+          plugin_languages_sections: most-used
           # Indexed by rank: most used language gets the brightest green.
           plugin_languages_colors: "0:#7ee787, 1:#56d364, 2:#39d353, 3:#2ea043, 4:#238636, 5:#196c2e"
 
@@ -58,22 +61,17 @@ jobs:
             svg { color: #8b949e; }
             h1, h2, h3 { color: #39d353; }
             .field svg { fill: #2ea043; }
-            .chart-bars .bar { background-color: #39d353; }
 
           base: ""
-          config_order: isocalendar, habits, activity
+          config_order: isocalendar
 
           plugin_isocalendar: yes
-          plugin_isocalendar_duration: half-year
+          plugin_isocalendar_duration: full-year
 
-          plugin_habits: yes
-          plugin_habits_charts: yes
-          plugin_habits_facts: yes
-          plugin_habits_days: 30
-
-          plugin_activity: yes
-          plugin_activity_limit: 5
-          plugin_activity_visibility: public
+          # Not enabled: plugin_habits and plugin_activity. Both read the commit
+          # list inside push events, which GitHub's Events API no longer returns
+          # (payload now only has before/head/push_id/ref/repository_id). Not fixed
+          # upstream either; plugin sources unchanged since 2023-12.
 
           # Not enabled: plugin_achievements. In v3.34 (and current master) it
           # queries GitHub's Projects (classic) API, which GitHub has shut down,
