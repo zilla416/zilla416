@@ -17,11 +17,17 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           user: zilla416
           filename: metrics.png
-          # PNG so the grayscale filter is baked in by the renderer instead of
-          # depending on how each viewer's browser handles CSS inside SVG.
+          # PNG so the dark background and colour overrides are baked in by the
+          # renderer instead of depending on each viewer's browser and theme.
           config_output: png
           config_display: large
-          extras_css: "html { filter: grayscale(100%); }"
+          # Overrides the classic template's blue/grey (see its style.css) with
+          # GitHub-dark green. Contribution squares already come in green.
+          extras_css: |
+            html, body, body > svg { background: #0d1117; }
+            svg { color: #8b949e; }
+            h1, h2, h3 { color: #39d353; }
+            .field svg { fill: #2ea043; }
 
           # Left out on purpose: community (followers, orgs can reveal employer),
           # activity (recent event feed), metadata (render timestamps).
@@ -32,11 +38,14 @@ jobs:
 
           plugin_languages: yes
           plugin_languages_limit: 8
+          # Indexed by rank: most used language gets the brightest green.
+          plugin_languages_colors: "0:#7ee787, 1:#56d364, 2:#39d353, 3:#2ea043, 4:#26a641, 5:#238636, 6:#196c2e, 7:#0e4429"
 
           plugin_lines: yes
 
-          plugin_achievements: yes
-          plugin_achievements_display: compact
+          # Not enabled: plugin_achievements. In v3.34 it queries GitHub's
+          # Projects (classic) API, which GitHub has shut down, so it renders
+          # "Unexpected error".
 
           # Not enabled: plugin_habits. Its commits-per-hour chart exposes your
           # timezone and daily schedule. config_timezone is also left unset (UTC)
